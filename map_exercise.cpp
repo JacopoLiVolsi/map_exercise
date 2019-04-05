@@ -19,10 +19,22 @@ main ()
   for (auto& jj : m)
     std::cout << jj.first << " " << jj.second << std::endl;
 
-  for (auto jj = m.begin (); jj != m.end (); ++jj)
-    if (jj->second < .5)
+  bool ereased=false; // Poichè cancellato un elemento l'albero
+                      // viene riorganizzato, se cancella
+                      // un elemento torno a scorrere l'albero
+                      // dall'inizio.
+  for (auto jj = m.begin (); jj != m.end (); ++jj){
+    if(ereased){
+      jj = m.begin();
+      ereased = false;
+    }
+    if (jj->second < .5){
       m.erase (jj);
+      ereased = true;
+    }
+  }
 
+  std::cout << '\n';
   std::cout << "final contents" << std::endl;
   for (auto& jj : m)
     std::cout << jj.first << " " << jj.second << std::endl;
